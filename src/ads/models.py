@@ -68,13 +68,13 @@ class ExchangeProposal(TimeMixin):
         CANCELLED = 'cancelled', _('Cancelled')
 
     ad_sender = models.ForeignKey(
-        User,
+        Ad,
         on_delete=models.CASCADE,
         related_name='sent_proposals',
         verbose_name=_('Sender'),
     )
     ad_receiver = models.ForeignKey(
-        User,
+        Ad,
         on_delete=models.CASCADE,
         related_name='received_proposals',
         verbose_name=_('Receiver'),
@@ -92,4 +92,4 @@ class ExchangeProposal(TimeMixin):
         verbose_name_plural = _('Proposals')
 
     def __str__(self):
-        return f'Exchange from {self.ad_sender.username} to {self.ad_receiver.username} - {self.status}'
+        return f'Exchange from {self.ad_sender.title} to {self.ad_receiver.title} - {self.status}'

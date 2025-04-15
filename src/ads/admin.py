@@ -4,12 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from .models import Ad, Category, ExchangeProposal
 
 
-class CategoryInline(admin.TabularInline):
-    model = Category
-    extra = 1
-    fields = ('title',)
-
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'id',)
@@ -20,7 +14,6 @@ class CategoryAdmin(admin.ModelAdmin):
 class AdAdmin(admin.ModelAdmin):
     list_display = ('title', 'user', 'category', 'condition', 'id',)
     readonly_fields = ('created_at', 'updated_at',)
-    inlines = (CategoryInline,)
 
 
 @admin.register(ExchangeProposal)
