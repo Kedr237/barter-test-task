@@ -8,6 +8,9 @@ services:
       - postgres
     env_file:
       - .env
+    volumes:
+      - app_static:/app/src/static
+      - app_media:/app/src/media
     restart: always
 
   postgres:

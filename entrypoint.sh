@@ -6,6 +6,8 @@ done
 
 cd src
 
+python manage.py compilemessages
+
 python manage.py migrate
 
 python manage.py shell << EOF
