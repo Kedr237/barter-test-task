@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from .models import Ad, ExchangeProposal
+from .models import Ad, Category, ExchangeProposal
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    ...
 
 
 @admin.register(Ad)

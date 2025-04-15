@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-15 14:31+0300\n"
+"POT-Creation-Date: 2025-04-15 19:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
 #: ads/models.py:10
 msgid "Creation date"
 msgstr "Дата создания"
@@ -31,70 +32,90 @@ msgstr "Дата обновления"
 msgid "Category title"
 msgstr "Название категории"
 
-#: ads/models.py:28
-msgid "New"
-msgstr "Новый"
-
-#: ads/models.py:29
-msgid "Used"
-msgstr "Б/у"
-
-#: ads/models.py:30
-msgid "Refurbished"
-msgstr "Восстановленный"
-
-#: ads/models.py:32
-msgid "User"
-msgstr "Пользователь"
-
-#: ads/models.py:33
-msgid "Title"
-msgstr "Название"
-
-#: ads/models.py:34
-msgid "Description"
-msgstr "Описание"
-
-#: ads/models.py:35
-msgid "Image URL (cover)"
-msgstr "URL изображения (обложка)"
-
-#: ads/models.py:41
+#: ads/models.py:22 ads/models.py:45
 msgid "Category"
 msgstr "Категория"
 
-#: ads/models.py:47
+#: ads/models.py:23
+msgid "Categories"
+msgstr "Категории"
+
+#: ads/models.py:32
+msgid "New"
+msgstr "Новый"
+
+#: ads/models.py:33
+msgid "Used"
+msgstr "Б/у"
+
+#: ads/models.py:34
+msgid "Refurbished"
+msgstr "Восстановленный"
+
+#: ads/models.py:36
+msgid "User"
+msgstr "Пользователь"
+
+#: ads/models.py:37
+msgid "Title"
+msgstr "Название"
+
+#: ads/models.py:38
+msgid "Description"
+msgstr "Описание"
+
+#: ads/models.py:39
+msgid "Image URL (cover)"
+msgstr "URL изображения (обложка)"
+
+#: ads/models.py:51
 msgid "Condition"
 msgstr "Состояние"
 
-#: ads/models.py:57
+#: ads/models.py:55
+msgid "Ad"
+msgstr "Объявление"
+
+#: ads/models.py:56
+msgid "Ads"
+msgstr "Объявления"
+
+#: ads/models.py:65
 msgid "Pending"
 msgstr "В ожидании"
 
-#: ads/models.py:58
+#: ads/models.py:66
 msgid "Accepted"
 msgstr "Принято"
 
-#: ads/models.py:59
+#: ads/models.py:67
 msgid "Rejected"
 msgstr "Отклонено"
 
-#: ads/models.py:60
+#: ads/models.py:68
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: ads/models.py:62
+#: ads/models.py:74
 msgid "Sender"
 msgstr "Отправитель"
 
-#: ads/models.py:63
+#: ads/models.py:80
 msgid "Receiver"
 msgstr "Получатель"
 
-#: ads/models.py:64
+#: ads/models.py:82
 msgid "Comment"
 msgstr "Комментарий"
 
-#: ads/models.py:69
+#: ads/models.py:87
 msgid "Status"
 msgstr "Статус"
+
+#: ads/models.py:91
+msgid "Proposal"
+msgstr "Предложение"
+
+#: ads/models.py:92
+msgid "Proposals"
+msgstr "Предложения"

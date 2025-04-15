@@ -18,8 +18,12 @@ class Category(TimeMixin):
 
     title = models.CharField(max_length=100, verbose_name=_('Category title'))
 
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
     def __str__(self):
-        return f'Category: "{self.title}"'
+        return f'{self.title}'
 
 
 class Ad(TimeMixin):
@@ -47,8 +51,12 @@ class Ad(TimeMixin):
         verbose_name=_('Condition'),
     )
 
+    class Meta:
+        verbose_name = _('Ad')
+        verbose_name_plural = _('Ads')
+
     def __str__(self):
-        return f'Product: "{self.title}" by {self.user.username}'
+        return f'"{self.title}" by {self.user.username}'
 
 
 class ExchangeProposal(TimeMixin):
@@ -62,13 +70,13 @@ class ExchangeProposal(TimeMixin):
     ad_sender = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='sender',
+        related_name='sent_proposals',
         verbose_name=_('Sender'),
     )
     ad_receiver = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='receiver',
+        related_name='received_proposals',
         verbose_name=_('Receiver'),
     )
     comment = models.TextField(null=True, verbose_name=_('Comment'))
@@ -78,6 +86,10 @@ class ExchangeProposal(TimeMixin):
         default=Status.PENDING,
         verbose_name=_('Status'),
     )
+
+    class Meta:
+        verbose_name = _('Proposal')
+        verbose_name_plural = _('Proposals')
 
     def __str__(self):
         return f'Exchange from {self.ad_sender.username} to {self.ad_receiver.username} - {self.status}'
