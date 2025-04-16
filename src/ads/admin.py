@@ -23,5 +23,7 @@ class ExchangeProposalAdmin(admin.ModelAdmin):
     
     def short_comment(self, obj: ExchangeProposal):
         comment = obj.comment
+        if not comment:
+            return ''
         return comment[:20] + '...' if len(comment) > 20 else comment
     short_comment.short_description = _('Comment')

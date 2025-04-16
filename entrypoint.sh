@@ -6,6 +6,7 @@ done
 
 cd src
 
+
 python manage.py migrate
 
 python manage.py compilemessages
@@ -36,12 +37,19 @@ else:
     print(f'Superuser with "{username}" or "{email}" already exists')
 EOF
 
+
+if [ "$GEN_MOCK" = "True" ]; then
+    python manage.py genmock
+fi
+
+
 find . -type d -name static | while read dir; do
   inotifywait -m -r -e modify,create,delete "$dir" |
   while read path _ file; do
     python manage.py collectstatic --noinput
   done &
 done
+
 
 if [ "$DEBUG" = "True" ]; then
     python manage.py runserver 0.0.0.0:8000
