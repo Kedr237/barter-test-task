@@ -36,4 +36,15 @@ else:
     print(f'Superuser with "{username}" or "{email}" already exists')
 EOF
 
-gunicorn settings.wsgi:application --bind 0.0.0.0:8000
+find . -type d -name static | while read dir; do
+  inotifywait -m -r -e modify,create,delete "$dir" |
+  while read path _ file; do
+    python manage.py collectstatic --noinput
+  done &
+done
+
+if [ "$DEBUG" = "True" ]; then
+    python manage.py runserver 0.0.0.0:8000
+else
+    gunicorn settings.wsgi:application --bind 0.0.0.0:8000
+fi

@@ -8,10 +8,15 @@ services:
       - postgres
     env_file:
       - .env
+    restart: always
     volumes:
       - app_static:/app/src/staticfiles
       - app_media:/app/src/media
-    restart: always
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
 
   postgres:
     image: postgres:16

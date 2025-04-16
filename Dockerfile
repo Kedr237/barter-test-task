@@ -2,7 +2,8 @@ FROM python:3.13.2
 
 RUN apt-get update \
     && apt-get install -y netcat-traditional \
-    && apt-get install -y gettext
+    && apt-get install -y gettext \
+    && apt-get install -y inotify-tools
 
 WORKDIR /app
 
