@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Главная страница{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'abs/css/ad_list.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="home">
+        <div class="container">
+            <h1>Объявления</h1>
+
+            {% if ads %}
+                <ul class="ad-list">
+                    {% for ad in ads %}
+                        <li class="ad-item">
+                            <a href="https://www.google.com" class="ad-item__link">
+                                <div class="ad-item__content">
+                                    <p class="ad-item__title">{{ ad.title }}</p>
+                                    <p class="ad-item__desc">{{ ad.description|truncatechars:100 }}</p>
+                                </div>
+                                {% if ad.image_url %}
+                                    <img src="{{ ad.image_url.url }}" class="ad-item__img">                        
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

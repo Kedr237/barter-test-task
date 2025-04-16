@@ -1,5 +1,11 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView
+
+from .models import Ad
 
 
-class HomeView(TemplateView):
-    template_name = 'ads/home.html'
+class AdListView(ListView):
+    model = Ad
+    template_name = 'ads/ad_list.html'
+    context_object_name = 'ads'
+    ordering = ['-created_at']
+    paginate_by = 20

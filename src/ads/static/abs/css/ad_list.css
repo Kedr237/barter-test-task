@@ -1,0 +1,41 @@
+.home {
+    padding: 30px 0;
+}
+
+
+.ad-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ad-item {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.ad-item__link {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.ad-item__img {
+    max-height: 12rem;
+    max-width: 12rem;
+    width: 100%;
+}
+
+.ad-item__content {
+
+}
+
+.ad-item__title {
+    font-weight: 600;
+}
+
+.ad-item__desc {
+    margin-top: 0.5rem;
+}

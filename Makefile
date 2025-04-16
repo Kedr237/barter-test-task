@@ -1,11 +1,8 @@
-include .env
-
 up:
-ifeq ($(DEBUG), True)
-	docker compose -f docker-compose.yml watch
-else
 	docker compose -f docker-compose.yml up -d --build --force-recreate --remove-orphans
-endif
+
+watch:
+	docker compose -f docker-compose.yml watch
 
 stop:
 	docker compose -f docker-compose.yml stop
