@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Главная страница{% endblock title %}
 
+{% block links %}
+    <link rel="stylesheet" href="{% static 'abs/css/home.css' %}">
+{% endblock links %}
+
 {% block content %}
-    This is a home.
+    <div class="home">
+        This is a home.
+    </div>
 {% endblock content %}
