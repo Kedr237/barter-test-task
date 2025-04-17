@@ -2,6 +2,32 @@
 
 }
 
+.ad-list__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.ad-create-link {
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff!important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.1s;
+}
+.ad-create-link span {
+    font-weight: 600;
+}
+.ad-create-link img {
+    max-width: 1.2em;
+}
+.ad-create-link:hover,
+.ad-create-link:active {
+    padding-left: 1rem;
+}
 
 .ads {
     display: flex;
@@ -63,11 +89,17 @@
 .step-links {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
 }
 .step-links__link {
-
+    padding: 0.5rem;
+    transition: 0.1s;
+}
+.step-links__link:hover,
+.step-links__link:active {
+    transform: translateY(-2px);
 }
 .current {
-
+    padding: 0.5rem;
 }

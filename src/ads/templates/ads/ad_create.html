@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Объявление{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'ads/css/ad_create.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="ad-create">
+        <div class="container">
+            <h1>Создайте объявление</h1>
+
+            <form method="POST" enctype="multipart/form-data" class="ad-form">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button class="ad-form__btn">Отправить</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock content %}

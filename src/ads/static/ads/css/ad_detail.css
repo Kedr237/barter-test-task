@@ -4,9 +4,11 @@
 
 .ad {
     display: flex;
+    margin-top: 2rem;
 }
 .ad__desc {
     padding-right: 1.5rem;
+    flex: 1;
 }
 
 .ad__img-cover {

@@ -5,7 +5,7 @@
 {% block title %}Объявление{% endblock title %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'abs/css/ad_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/ad_detail.css' %}">
 {% endblock links %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             <h1>{{ ad.title }}</h1>
 
             <div class="ad">
-                <p class="ad__desc">{{ ad.description }}</p>
+                <p class="ad__desc">{{ ad.description|linebreaksbr }}</p>
                 <div class="ad__img-cover">
                     {% if ad.image_url %}
                         <img src="{{ ad.image_url.url }}" class="ad__img">                        

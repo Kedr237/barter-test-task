@@ -10,7 +10,6 @@ html {
 h1 {
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 2rem;
 }
 
 
@@ -32,6 +31,28 @@ header {
     padding: 1rem 0;
     background: #000;
     color: #fff;
+}
+.header__links {
+    display: flex;
+    gap: 1rem;
+}
+.header__link {
+    position: relative;
+    padding-bottom: 2px;
+}
+.header__underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: 0.1s;
+}
+.header__link:hover .header__underline,
+.header__link:active .header__underline {
+    width: 100%;
 }
 
 
