@@ -1,41 +1,75 @@
-.home {
-    padding: 30px 0;
+.ad-list {
+    padding: 3rem 0;
 }
 
 
-.ad-list {
+.ads {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
 }
 
 .ad-item {
     border: 1px solid #000;
     border-radius: 10px;
-    padding: 10px;
 }
-
 .ad-item__link {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-}
-
-.ad-item__img {
-    max-height: 12rem;
-    max-width: 12rem;
-    width: 100%;
 }
 
 .ad-item__content {
-
+    width: 100%;
+    padding: 0.5rem;
+    padding-right: 1.5rem;
+    position: relative;
 }
-
 .ad-item__title {
     font-weight: 600;
 }
-
 .ad-item__desc {
     margin-top: 0.5rem;
+}
+.hover-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    background: #000;
+    transition: 0.1s;
+}
+.ad-item__link:hover .hover-bar,
+.ad-item__link:active .hover-bar {
+    width: 1rem;
+}
+
+.ad-item__img-cover {
+    max-height: 12rem;
+    max-width: 12rem;
+    min-width: 2rem;
+    padding: 0.5rem;
+    background: #000;
+    border-radius: 0 8px 8px 0;
+}
+.ad-item__img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.pagination {
+    margin-top: 2rem;
+}
+.step-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.step-links__link {
+
+}
+.current {
+
 }
