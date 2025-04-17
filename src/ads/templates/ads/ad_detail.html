@@ -25,7 +25,16 @@
 
             {% if user.is_authenticated and user == ad.user %}
                 <div class="edit-block">
-                    <h2>Отредактировать</h2>
+                    <div class="edit-block__top">
+                        <h2>Отредактировать</h2>
+                        <form action="{% url "ad_delete" id=ad.id %}" method="POST" class="delete-form">
+                            {% csrf_token %}
+                            <button class="delete-form__btn">
+                                <span>Удалить</span>
+                                <img src="{% static "ads/img/trash.svg" %}"  class="delete-form__img">
+                            </button>
+                        </form>
+                    </div>
                     <form method="POST" enctype="multipart/form-data" class="ad-form">
                         {% csrf_token %}
                         {% for field in form.visible_fields %}

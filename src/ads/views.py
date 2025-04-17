@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, View
 
 from .forms import AdForm
 from .models import Ad
@@ -66,3 +66,12 @@ class AdCreateView(CreateView, LoginRequiredMixin):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class AdDeleteView(View, LoginRequiredMixin):
+
+    def post(self, request: HttpRequest, id: int):
+        ad = get_object_or_404(Ad, id=id)
+        if ad.user == request.user:
+            ad.delete()
+        return redirect('my_ad_list')

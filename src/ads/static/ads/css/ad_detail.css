@@ -16,12 +16,41 @@
     max-width: 12rem;
     padding: 0.5rem;
     background: #000;
+    border-radius: 10px;
 }
 .ad__img {
     width: 100%;
     height: 100%;
+    border-radius: 10px;
 }
 
 .edit-block {
     margin-top: 4rem;
+}
+.edit-block__top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-form {
+
+}
+.delete-form__btn {
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.delete-form__img {
+    max-width: 1.2em;
+}
+.delete-form__btn:hover,
+.delete-form__btn:active {
+    padding-left: 1rem;
 }
