@@ -1,4 +1,5 @@
 from django.views.generic import DetailView, ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from .models import Ad
@@ -13,6 +14,16 @@ class AdListView(ListView):
     paginate_by = 20
 
 
+class MyAdListView(ListView, LoginRequiredMixin):
+    model = Ad
+    template_name = 'ads/my_ad_list.html'
+    context_object_name = 'ads'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return Ad.objects.filter(user=self.request.user).order_by('-created_at')
+
+
 class AdDetail(DetailView):
     model = Ad
     template_name = 'ads/ad_detail.html'
@@ -20,7 +31,7 @@ class AdDetail(DetailView):
     pk_url_kwarg = 'id'
 
 
-class AdCreateView(CreateView):
+class AdCreateView(CreateView, LoginRequiredMixin):
     model = Ad
     template_name = 'ads/ad_create.html'
     form_class = AdCreateForm

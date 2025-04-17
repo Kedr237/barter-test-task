@@ -5,14 +5,14 @@
 {% block title %}Список объявлений{% endblock title %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'ads/css/ad_list.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/my_ad_list.css' %}">
 {% endblock links %}
 
 {% block content %}
-    <div class="ad-list">
+    <div class="my-ad-list">
         <div class="container">
-            <div class="ad-list__top">
-                <h1>Объявления</h1>
+            <div class="my-ad-list__top">
+                <h1>Мои Объявления</h1>
                 <a href="{% url "ad_create" %}" class="ad-create-link">
                     <span>Создать</span>
                     <img src="{% static "ads/img/plus.svg" %}">
