@@ -23,7 +23,7 @@
                 <ul class="ads">
                     {% for ad in ads %}
                         <li class="ad-item">
-                            <a href="{% url "ad_detail" id=ad.id %}" class="ad-item__link">
+                            <a href="{% url "ad_detail" id=ad.id %}" class="ad-item__link {% if ad.user == user %}my-ad{% endif %}">
                                 <div class="ad-item__content">
                                     <p class="ad-item__title">{{ ad.title }}</p>
                                     <p class="ad-item__desc">{{ ad.description|truncatechars:100 }}</p>

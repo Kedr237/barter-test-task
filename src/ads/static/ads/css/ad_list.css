@@ -104,3 +104,9 @@
 .current {
     padding: 0.5rem;
 }
+
+.my-ad .ad-item__img-cover{
+    box-sizing: border-box!important;
+    background: linear-gradient(to left, #000 50%, transparent 50%, transparent 80%, #000 80%);
+    border: 1px solid black;
+}
