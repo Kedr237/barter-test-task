@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Объявление{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'abs/css/ad_detail.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="ad-detail">
+        <div class="container">
+            <h1>{{ ad.title }}</h1>
+
+            <div class="ad">
+                <p class="ad__desc">{{ ad.description }}</p>
+                <div class="ad__img-cover">
+                    {% if ad.image_url %}
+                        <img src="{{ ad.image_url.url }}" class="ad__img">                        
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}

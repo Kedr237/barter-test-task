@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Главная страница{% endblock title %}
+{% block title %}Список объявлений{% endblock title %}
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'abs/css/ad_list.css' %}">
@@ -17,11 +17,11 @@
                 <ul class="ads">
                     {% for ad in ads %}
                         <li class="ad-item">
-                            <a href="https://www.google.com" class="ad-item__link">
+                            <a href="{% url "ad_detail" id=ad.id %}" class="ad-item__link">
                                 <div class="ad-item__content">
                                     <p class="ad-item__title">{{ ad.title }}</p>
                                     <p class="ad-item__desc">{{ ad.description|truncatechars:100 }}</p>
-                                    <div class="hover-bar"></div>
+                                    <div class="ad-item__hover-bar"></div>
                                 </div>
                                 <div class="ad-item__img-cover">
                                     {% if ad.image_url %}

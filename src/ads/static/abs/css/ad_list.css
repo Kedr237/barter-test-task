@@ -1,10 +1,9 @@
 .ad-list {
-    padding: 3rem 0;
+
 }
 
 
 .ads {
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -13,6 +12,7 @@
 .ad-item {
     border: 1px solid #000;
     border-radius: 10px;
+    overflow: hidden;
 }
 .ad-item__link {
     display: flex;
@@ -31,7 +31,7 @@
 .ad-item__desc {
     margin-top: 0.5rem;
 }
-.hover-bar {
+.ad-item__hover-bar {
     position: absolute;
     top: 0;
     right: 0;
@@ -40,18 +40,16 @@
     background: #000;
     transition: 0.1s;
 }
-.ad-item__link:hover .hover-bar,
-.ad-item__link:active .hover-bar {
+.ad-item__link:hover .ad-item__hover-bar,
+.ad-item__link:active .ad-item__hover-bar {
     width: 1rem;
 }
 
 .ad-item__img-cover {
     max-height: 12rem;
     max-width: 12rem;
-    min-width: 2rem;
     padding: 0.5rem;
     background: #000;
-    border-radius: 0 8px 8px 0;
 }
 .ad-item__img {
     width: 100%;
