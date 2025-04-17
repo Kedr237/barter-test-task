@@ -1,0 +1,9 @@
+<input type="file" name="{{ widget.name }}" id="{{ widget.id_for_label }}" class="{{ widget.attrs.class }}" accept="{{ widget.attrs.accept }}">
+{% if widget.value %}
+    <div class="ad-form__image-preview">
+        <label for="{{ widget.checkbox_id }}">
+            <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+            Очистить изображение
+        </label>
+    </div>
+{% endif %}

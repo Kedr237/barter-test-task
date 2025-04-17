@@ -3,7 +3,13 @@ from django import forms
 from .models import Ad
 
 
-class AdCreateForm(forms.ModelForm):
+class CustomClearableFileInput(forms.ClearableFileInput):
+
+    template_name = 'ads/widgets/custom_clearable_file_input.html'
+
+
+class AdForm(forms.ModelForm):
+
     class Meta:
         model = Ad
         fields = ('title', 'description', 'image_url', 'category', 'condition')
@@ -17,7 +23,7 @@ class AdCreateForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'ad-form__widget ad-form__description',
             }),
-            'image_url': forms.ClearableFileInput(attrs={
+            'image_url': CustomClearableFileInput(attrs={
                 'class': 'ad-form__widget ad-form__image',
             }),
             'category': forms.Select(attrs={
@@ -27,3 +33,10 @@ class AdCreateForm(forms.ModelForm):
                 'class': 'ad-form__widget ad-form__condition',
             }),
         }
+
+    def clean_image_url(self):
+        image = self.cleaned_data.get('image_url')
+        image_clear = self.cleaned_data.get('image_url-clear')
+        if image_clear:
+            return None
+        return image

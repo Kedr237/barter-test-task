@@ -6,6 +6,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'ads/css/ad_create.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/ad_form.css' %}">
 {% endblock links %}
 
 {% block content %}
@@ -15,10 +16,26 @@
 
             <form method="POST" enctype="multipart/form-data" class="ad-form">
                 {% csrf_token %}
-                {{ form.as_div }}
+                {% for field in form.visible_fields %}
+                    <div>
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                {% if form.errors %}
+                    <ul class="form-errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <button class="ad-form__btn">Отправить</button>
             </form>
-
         </div>
     </div>
 {% endblock content %}
