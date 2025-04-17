@@ -35,8 +35,8 @@ class Ad(TimeMixin):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'))
     title = models.CharField(max_length=100, verbose_name=_('Title'))
-    description = models.TextField(null=True, verbose_name=_('Description'))
-    image_url = models.ImageField(null=True, blank=True, verbose_name=_('Image URL (cover)'))
+    description = models.TextField(null=True, blank=True, verbose_name=_('Description'))
+    image = models.ImageField(null=True, blank=True, verbose_name=_('Image URL (cover)'))
     category = models.ForeignKey(
         Category,
         null=True,
@@ -79,7 +79,7 @@ class ExchangeProposal(TimeMixin):
         related_name='received_proposals',
         verbose_name=_('Receiver'),
     )
-    comment = models.TextField(null=True, verbose_name=_('Comment'))
+    comment = models.TextField(null=True, blank=True, verbose_name=_('Comment'))
     status = models.CharField(
         max_length=20,
         choices=Status,

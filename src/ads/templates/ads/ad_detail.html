@@ -7,6 +7,7 @@
 {% block links %}
     <link rel="stylesheet" href="{% static 'ads/css/ad_detail.css' %}">
     <link rel="stylesheet" href="{% static 'ads/css/ad_form.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/exchange_form.css' %}">
 {% endblock links %}
 
 {% block content %}
@@ -17,12 +18,44 @@
             <div class="ad">
                 <p class="ad__desc">{{ ad.description|linebreaksbr }}</p>
                 <div class="ad__img-cover">
-                    {% if ad.image_url %}
-                        <img src="{{ ad.image_url.url }}" class="ad__img">                        
+                    {% if ad.image %}
+                        <img src="{{ ad.image.url }}" class="ad__img">                        
                     {% endif %}
                 </div>
             </div>
 
+
+            {% comment %} Exchange form. {% endcomment %}
+            {% if user.is_authenticated and user != ad.user %}
+                <div class="exchange-block">
+                    <h2>Предложить обмен</h2>
+                    <form method="POST" class="exchange-form">
+                        {% csrf_token %}
+                        {% for field in exchange_form.visible_fields %}
+                            <div>
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        {% if exchange_form.errors %}
+                            <ul class="form-errors">
+                                {% for field in exchange_form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in exchange_form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <button class="exchange-form__btn" name="exchange_proposal">Отправить</button>
+                    </form>
+                </div>
+            {% endif %}
+
+
+            {% comment %} Edit form. {% endcomment %}
             {% if user.is_authenticated and user == ad.user %}
                 <div class="edit-block">
                     <div class="edit-block__top">
@@ -37,28 +70,29 @@
                     </div>
                     <form method="POST" enctype="multipart/form-data" class="ad-form">
                         {% csrf_token %}
-                        {% for field in form.visible_fields %}
+                        {% for field in ad_form.visible_fields %}
                             <div>
                                 {{ field.label_tag }}
                                 {{ field }}
                             </div>
                         {% endfor %}
-                        {% if form.errors %}
+                        {% if ad_form.errors %}
                             <ul class="form-errors">
-                                {% for field in form %}
+                                {% for field in ad_form %}
                                     {% for error in field.errors %}
                                         <li>{{ error }}</li>
                                     {% endfor %}
                                 {% endfor %}
-                                {% for error in form.non_field_errors %}
+                                {% for error in ad_form.non_field_errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
-                        <button class="ad-form__btn">Отправить</button>
+                        <button class="ad-form__btn" name="edit_ad">Отправить</button>
                     </form>
                 </div>
             {% endif %}
+
 
         </div>
     </div>

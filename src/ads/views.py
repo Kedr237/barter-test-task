@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, View
 
-from .forms import AdForm
+from .forms import AdForm, ExchangeProposalForm
 from .models import Ad
 
 
@@ -38,22 +38,50 @@ class AdDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         ad: Ad = self.get_object()
-        if self.request.user == ad.user:
-            context['form'] = AdForm(instance=ad)
+        user = self.request.user
+        if user.is_authenticated:
+            if user == ad.user:
+                context['ad_form'] = AdForm(instance=ad)
+            if user != ad.user:
+                context['exchange_form'] = ExchangeProposalForm(user=user)
         return context
     
     def post(self, request: HttpRequest, *args, **kwargs):
         self.object = self.get_object()
-        if request.user != self.object.user:
-            return redirect('ad_detail', id=self.object.id)
+        ad: Ad = self.object
+        user = request.user
 
-        form = AdForm(request.POST, request.FILES, instance=self.object)
-        if form.is_valid():
-            form.save()
-            return redirect('ad_detail', id=self.object.id)
-        context = self.get_context_data(object=self.object)
-        context['form'] = form
-        return self.render_to_response(context)
+        # Processing the edit form.
+        if 'edit_ad' in request.POST:
+            if not user.is_authenticated or user != ad.user:
+                return redirect('ad_detail', id=ad.id)
+
+            form = AdForm(request.POST, request.FILES, instance=ad)
+            if form.is_valid():
+                form.save()
+                return redirect('ad_detail', id=ad.id)
+
+            context = self.get_context_data()
+            context['ad_form'] = form
+            return self.render_to_response(context)
+        
+        # Processing the exchange form.
+        elif 'exchange_proposal' in request.POST:
+            if not user.is_authenticated or user == ad.user:
+                return redirect('ad_detail', id=ad.id)
+            
+            form = ExchangeProposalForm(request.POST, user=user)
+            if form.is_valid():
+                proposal = form.save(commit=False)
+                proposal.ad_receiver = ad
+                proposal.save()
+                return redirect('ad_detail', id=ad.id)
+
+            context = self.get_context_data()
+            context['exchange_form'] = form
+            return self.render_to_response(context)
+
+        return redirect('ad_detail', id=ad.id)
 
 
 class AdCreateView(CreateView, LoginRequiredMixin):

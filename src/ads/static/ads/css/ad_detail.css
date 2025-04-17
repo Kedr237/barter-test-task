@@ -32,6 +32,7 @@
     justify-content: space-between;
 }
 
+
 .delete-form {
 
 }
@@ -53,4 +54,9 @@
 .delete-form__btn:hover,
 .delete-form__btn:active {
     padding-left: 1rem;
+}
+
+
+.exchange-block {
+    margin-top: 4rem;
 }
