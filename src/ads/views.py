@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, View
 
 from .forms import AdForm, ExchangeProposalForm
-from .models import Ad
+from .models import Ad, ExchangeProposal
 
 
 class AdListView(ListView):
@@ -43,9 +43,10 @@ class AdDetail(DetailView):
             if user == ad.user:
                 context['ad_form'] = AdForm(instance=ad)
             if user != ad.user:
-                context['exchange_form'] = ExchangeProposalForm(user=user)
+                context['exchange_form'] = ExchangeProposalForm(user=user, ad_receiver=ad)
+                context['proposals'] = ExchangeProposal.objects.filter(ad_sender__user=user)
         return context
-    
+
     def post(self, request: HttpRequest, *args, **kwargs):
         self.object = self.get_object()
         ad: Ad = self.object
@@ -103,3 +104,12 @@ class AdDeleteView(View, LoginRequiredMixin):
         if ad.user == request.user:
             ad.delete()
         return redirect('my_ad_list')
+
+
+class ProposalDeleteView(View, LoginRequiredMixin):
+
+    def post(self, request: HttpRequest, id: int):
+        proposal = get_object_or_404(ExchangeProposal, id=id)
+        if proposal.ad_sender.user == request.user:
+            proposal.delete()
+        return redirect(request.META.get('HTTP_REFERER', '/'))

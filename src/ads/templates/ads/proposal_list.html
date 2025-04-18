@@ -2,36 +2,30 @@
 
 {% load static %}
 
-{% block title %}Объявления{% endblock title %}
+{% block title %}Предложения обмена{% endblock title %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'ads/css/ad_list.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/proposal_list.css' %}">
 {% endblock links %}
 
 {% block content %}
-    <div class="ad-list">
+    <div class="my-ad-list">
         <div class="container">
-            <div class="ad-list__top">
-                <h1>Объявления</h1>
-                <a href="{% url "ad_create" %}" class="ad-create-link">
-                    <span>Создать</span>
-                    <img src="{% static "ads/img/plus.svg" %}">
-                </a>
-            </div>
+            <h1>Предложения обмена</h1>
 
-            {% if ads %}
-                <ul class="ads">
-                    {% for ad in ads %}
-                        <li class="ad-item">
-                            <a href="{% url "ad_detail" id=ad.id %}" class="ad-item__link {% if ad.user == user %}my-ad{% endif %}">
-                                <div class="ad-item__content">
-                                    <p class="ad-item__title">{{ ad.title }}</p>
-                                    <p class="ad-item__desc">{{ ad.description|truncatechars:100 }}</p>
-                                    <div class="ad-item__hover-bar"></div>
+            {% if proposals %}
+                <ul class="proposals">
+                    {% for proposal in proposals %}
+                        <li class="proposal-item">
+                            <a href="{% url "ad_detail" id=ad.id %}" class="proposal-item__link">
+                                <div class="proposal-item__content">
+                                    <p class="proposal-item__title">{{ ad.title }}</p>
+                                    <p class="proposal-item__desc">{{ ad.comment|truncatechars:100 }}</p>
+                                    <div class="proposal-item__hover-bar"></div>
                                 </div>
-                                <div class="ad-item__img-cover">
+                                <div class="proposal-item__img-cover">
                                     {% if ad.image %}
-                                        <img src="{{ ad.image.url }}" class="ad-item__img">                        
+                                        <img src="{{ ad.image.url }}" class="proposal-item__img">                        
                                     {% endif %}
                                 </div>
                             </a>

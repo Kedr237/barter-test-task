@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Объявление{% endblock title %}
+{% block title %}Детали объявления{% endblock title %}
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'ads/css/ad_detail.css' %}">
@@ -27,6 +27,32 @@
 
             {% comment %} Exchange form. {% endcomment %}
             {% if user.is_authenticated and user != ad.user %}
+                {% if proposals %}
+                    <div class="proposals-block">
+                        <h2>Мои предложения</h2>
+                        <ul class="proposals">
+                            {% for proposal in proposals %}
+                                <li class="proposals__item">
+                                    <div class="proposals__item_content">
+                                        <div class="proposals__bar"></div>
+                                        <p class="proposals__title"><b>Я предлагаю: </b>{{ proposal.ad_sender.title }}</p>
+                                        {% if proposal.comment %}
+                                            <p class="proposals__comment"><b >Комментарий: </b>{{ proposal.comment|truncatechars:50 }}</p>                                    
+                                        {% endif %}
+                                    </div>
+                                    <form action="{% url "proposal_delete" id=proposal.id %}" method="POST" class="delete-form">
+                                        {% csrf_token %}
+                                        <button class="delete-form__btn">
+                                            <span>Удалить</span>
+                                            <img src="{% static "ads/img/trash.svg" %}"  class="delete-form__img">
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
                 <div class="exchange-block">
                     <h2>Предложить обмен</h2>
                     <form method="POST" class="exchange-form">

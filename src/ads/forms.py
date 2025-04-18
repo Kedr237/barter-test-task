@@ -59,9 +59,17 @@ class ExchangeProposalForm(forms.ModelForm):
             })
         }
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, user=None, ad_receiver=None, **kwargs):
         super().__init__(*args, **kwargs)
         if user:
-            queryset = Ad.objects.filter(user=user)
-            self.fields['ad_sender'].queryset = queryset
+            user_ads = Ad.objects.filter(user=user)
+
+            if ad_receiver:
+                proposed_ad_ids = ExchangeProposal.objects.filter(
+                    ad_receiver=ad_receiver,
+                    ad_sender__in=user_ads,
+                ).values_list('ad_sender_id', flat=True)
+                user_ads = user_ads.exclude(id__in=proposed_ad_ids)
+
+            self.fields['ad_sender'].queryset = user_ads
             self.fields['ad_sender'].label_from_instance = lambda obj: obj.title
