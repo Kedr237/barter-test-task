@@ -113,3 +113,16 @@ class ProposalDeleteView(View, LoginRequiredMixin):
         if proposal.ad_sender.user == request.user:
             proposal.delete()
         return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class MyProposalsView(ListView, LoginRequiredMixin):
+
+    model = ExchangeProposal
+    template_name = 'ads/my_proposals.html'
+    context_object_name = 'proposals'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return ExchangeProposal.objects.filter(
+            ad_sender__user=self.request.user,
+        ).order_by('-created_at')

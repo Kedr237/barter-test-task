@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Мои предложения{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'ads/css/my_proposals.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="my-proposals">
+        <div class="container">
+            <div class="my-proposals__top">
+                <h1>Мои предложения</h1>
+                <a href="{% url "ad_create" %}" class="proposal-create-link">
+                    <span>Создать</span>
+                    <img src="{% static "ads/img/plus.svg" %}">
+                </a>
+            </div>
+
+            {% if proposals %}
+                <ul class="proposals">
+                    {% for proposal in proposals %}
+                        <li class="proposal-item">
+                                <div class="proposal-item__content">
+                                    <a href="#" class="proposal-item__link">
+                                        <p class="proposal-item__title">
+                                            <b>Я предлагаю: </b>
+                                            {{ proposal.ad_sender.title }}
+                                        </p>
+                                        <div class="proposal-item__hover-bar"></div>
+                                    </a>
+                                    <a href="#" class="proposal-item__link">
+                                        <p class="proposal-item__title">
+                                            <b>Я хочу: </b>
+                                            {{ proposal.ad_receiver.title }}
+                                        </p>
+                                        <div class="proposal-item__hover-bar"></div>
+                                    </a>
+                                    <p class="proposal-item__comment">
+                                        <b>Комментарий: </b>
+                                        {{ proposal.comment }}
+                                    </p>
+                                </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Здесь пусто</p>
+            {% endif %}
+
+            {% if page_obj.has_previous or page_obj.has_next  %}
+                <div class="pagination">
+                    <div class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class="step-links__link" title="Начало">&laquo;</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" class="step-links__link" title="Назад">&lsaquo;</a>
+                        {% endif %}
+                        <span class="current">
+                            {{ page_obj.number }}
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="step-links__link" title="Вперед">&rsaquo;</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="step-links__link" title="Конец">&raquo;</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content %}
