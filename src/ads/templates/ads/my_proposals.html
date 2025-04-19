@@ -13,10 +13,6 @@
         <div class="container">
             <div class="my-proposals__top">
                 <h1>Мои предложения</h1>
-                <a href="{% url "ad_create" %}" class="proposal-create-link">
-                    <span>Создать</span>
-                    <img src="{% static "ads/img/plus.svg" %}">
-                </a>
             </div>
 
             {% if proposals %}
@@ -38,10 +34,12 @@
                                         </p>
                                         <div class="proposal-item__hover-bar"></div>
                                     </a>
-                                    <p class="proposal-item__comment">
-                                        <b>Комментарий: </b>
-                                        {{ proposal.comment }}
-                                    </p>
+                                    {% if proposal.comment %}
+                                        <p class="proposal-item__comment">
+                                            <b>Комментарий: </b>
+                                            {{ proposal.comment }}
+                                        </p>                                    
+                                    {% endif %}
                                 </div>
                         </li>
                     {% endfor %}
