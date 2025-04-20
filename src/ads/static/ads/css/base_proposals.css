@@ -19,7 +19,7 @@
     transition: 0.1s;
 }
 .proposal-create-link span {
-    font-weight: 600;
+
 }
 .proposal-create-link img {
     max-width: 1.2em;
@@ -115,7 +115,7 @@
     transition: 0.1s;
 }
 .edit-link span {
-    font-weight: 600;
+
 }
 .edit-link img {
     max-width: 1.2em;
