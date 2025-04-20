@@ -5,13 +5,13 @@
 {% block title %}Предложения{% endblock title %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'ads/css/my_proposals.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/base_proposals.css' %}">
 {% endblock links %}
 
 {% block content %}
-    <div class="my-proposals">
+    <div class="base-proposals">
         <div class="container">
-            <div class="my-proposals__top">
+            <div class="base-proposals__top">
                 <h1>{% block h1 %}{% endblock h1 %}</h1>
             </div>
 
@@ -20,6 +20,7 @@
                     {% for proposal in proposals %}
                         <li class="proposal-item">
                                 <div class="proposal-item__content">
+                                    {% block edit_links %}{% endblock edit_links %}
                                     <a href="{% url "ad_detail" id=proposal.ad_sender.id %}" class="proposal-item__link">
                                         <p class="proposal-item__title">
                                             <b>{% block ad_sender_text %}{% endblock ad_sender_text %}: </b>

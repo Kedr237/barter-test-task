@@ -1,5 +1,7 @@
 {% extends "ads/base_proposals.html" %}
 
+{% load static %}
+
 {% block title %}Мои предложения{% endblock title %}
 
 {% block h1 %}Мои предложения{% endblock h1 %}
@@ -7,3 +9,19 @@
 {% block ad_sender_text %}Я предлагаю{% endblock ad_sender_text %}
 
 {% block ad_receiver_text %}Я хочу{% endblock ad_receiver_text %}
+
+{% block edit_links %}
+    <div class="edit-links">
+        <a href="{% url "ad_create" %}" class="edit-link">
+            <span>Изменить</span>
+            <img src="{% static "ads/img/edit.svg" %}">
+        </a>
+        <form action="{% url "proposal_delete" id=proposal.id %}" method="POST" class="delete-form">
+            {% csrf_token %}
+            <button class="delete-form__btn">
+                <span>Удалить</span>
+                <img src="{% static "ads/img/trash.svg" %}"  class="delete-form__img">
+            </button>
+        </form>
+    </div>
+{% endblock edit_links %}

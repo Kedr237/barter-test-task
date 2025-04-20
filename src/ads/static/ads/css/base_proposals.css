@@ -1,8 +1,8 @@
-.my-proposals {
+.base-proposals {
 
 }
 
-.my-proposals__top {
+.base-proposals__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,4 +95,56 @@
 }
 .current {
     padding: 0.5rem;
+}
+
+
+.edit-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-link {
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff!important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.1s;
+}
+.edit-link span {
+    font-weight: 600;
+}
+.edit-link img {
+    max-width: 1.2em;
+}
+.edit-link:hover,
+.edit-link:active {
+    padding-right: 1rem;
+}
+
+.delete-form {
+
+}
+.delete-form__btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem;
+    border-radius: 10px 0 0 10px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.delete-form__img {
+    max-width: 1.2em;
+}
+.delete-form__btn:hover,
+.delete-form__btn:active {
+    padding-left: 1rem;
 }
