@@ -2,4 +2,72 @@
 
 {% load static %}
 
-{% block title %}Изменить объявление{% endblock title %}
+{% block title %}Предложение обмена{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'ads/css/edit_proposal.css' %}">
+    <link rel="stylesheet" href="{% static 'ads/css/proposal_form.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="edit-proposal">
+        <div class="container">
+
+            <h1>Предложение обмена</h1>
+
+            <div class="proposal">
+                <a href="{% url "ad_detail" id=proposal.ad_sender.id %}" class="proposal-item__link">
+                    <p class="ad-sender">
+                        <b>Я предлагаю: </b>{{ proposal.ad_sender.title }}
+                        <div class="proposal-item__hover-bar"></div>
+                    </p>
+                </a>
+                <a href="{% url "ad_detail" id=proposal.ad_receiver.id %}" class="proposal-item__link">
+                    <p class="ad-receiver">
+                        <b>Я хочу: </b>{{ proposal.ad_receiver.title }}
+                        <div class="proposal-item__hover-bar"></div>
+                    </p>
+                </a>
+                <p class="proposal-comment">
+                    <b>Комментарий: </b>{{ proposal.comment }}
+                </p>
+            </div>
+
+            <div class="proposal-block">
+                <div class="edit-block__top">
+                    <h2>Отредактировать</h2>
+                    <form action="{% url "proposal_delete" id=proposal.id %}" method="POST" class="delete-form">
+                        {% csrf_token %}
+                        <button class="delete-form__btn">
+                            <span>Удалить</span>
+                            <img src="{% static "ads/img/trash.svg" %}"  class="delete-form__img">
+                        </button>
+                    </form>
+                </div>
+                <form method="POST" class="proposal-form">
+                    {% csrf_token %}
+                    {% for field in proposal_form.visible_fields %}
+                        <div>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    {% if proposal_form.errors %}
+                        <ul class="form-errors">
+                            {% for field in proposal_form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in proposal_form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <button class="proposal-form__btn" name="exchange_proposal">Отправить</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}

@@ -58,7 +58,7 @@
 }
 
 
-.exchange-block {
+.proposal-block {
     margin-top: 4rem;
 }
 
@@ -92,9 +92,15 @@
 .proposals__bar {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 0.5rem;
     height: 100%;
     border-radius: 10px;
     background: #000;
+    transition: 0.1s;
+}
+.proposals__edit-link:hover .proposals__bar,
+.proposals__edit-link:active .proposals__bar {
+    height: calc(100% + 0.5rem);
 }

@@ -12,7 +12,7 @@
 
 {% block edit_links %}
     <div class="edit-links">
-        <a href="{% url "ad_create" %}" class="edit-link">
+        <a href="{% url "edit_proposal" id=proposal.id %}" class="edit-link">
             <span>Изменить</span>
             <img src="{% static "ads/img/edit.svg" %}">
         </a>

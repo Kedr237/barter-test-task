@@ -44,7 +44,7 @@ class AdDetail(DetailView):
                 context['ad_form'] = AdForm(instance=ad)
                 context['proposals_for_me'] = ExchangeProposal.objects.filter(ad_receiver__user=user, ad_receiver=ad)
             if user != ad.user:
-                context['exchange_form'] = ExchangeProposalForm(user=user, ad_receiver=ad)
+                context['proposal_form'] = ExchangeProposalForm(user=user, ad_receiver=ad)
                 context['my_proposals'] = ExchangeProposal.objects.filter(ad_sender__user=user, ad_receiver=ad)
         return context
 
@@ -56,12 +56,12 @@ class AdDetail(DetailView):
         # Processing the edit form.
         if 'edit_ad' in request.POST:
             if not user.is_authenticated or user != ad.user:
-                return redirect('ad_detail', id=ad.id)
+                return redirect(request.path)
 
             form = AdForm(request.POST, request.FILES, instance=ad)
             if form.is_valid():
                 form.save()
-                return redirect('ad_detail', id=ad.id)
+                return redirect(request.path)
 
             context = self.get_context_data()
             context['ad_form'] = form
@@ -70,20 +70,20 @@ class AdDetail(DetailView):
         # Processing the exchange form.
         elif 'exchange_proposal' in request.POST:
             if not user.is_authenticated or user == ad.user:
-                return redirect('ad_detail', id=ad.id)
+                return redirect(request.path)
             
             form = ExchangeProposalForm(request.POST, user=user)
             if form.is_valid():
                 proposal = form.save(commit=False)
                 proposal.ad_receiver = ad
                 proposal.save()
-                return redirect('ad_detail', id=ad.id)
+                return redirect(request.path)
 
             context = self.get_context_data()
-            context['exchange_form'] = form
+            context['proposal_form'] = form
             return self.render_to_response(context)
 
-        return redirect('ad_detail', id=ad.id)
+        return redirect(request.path)
 
 
 class AdCreateView(CreateView, LoginRequiredMixin):
@@ -113,7 +113,7 @@ class ProposalDeleteView(View, LoginRequiredMixin):
         proposal = get_object_or_404(ExchangeProposal, id=id)
         if proposal.ad_sender.user == request.user:
             proposal.delete()
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+        return redirect('my_proposals')
 
 
 class MyProposalsView(ListView, LoginRequiredMixin):
@@ -129,7 +129,6 @@ class MyProposalsView(ListView, LoginRequiredMixin):
         ).order_by('-created_at')
 
 
-
 class ProposalsForMeView(ListView, LoginRequiredMixin):
 
     model = ExchangeProposal
@@ -141,3 +140,36 @@ class ProposalsForMeView(ListView, LoginRequiredMixin):
         return ExchangeProposal.objects.filter(
             ad_receiver__user=self.request.user,
         ).order_by('-created_at')
+
+
+class EditProposalView(DetailView, LoginRequiredMixin):
+
+    model = ExchangeProposal
+    template_name = 'ads/edit_proposal.html'
+    context_object_name = 'proposal'
+    pk_url_kwarg = 'id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        proposal: ExchangeProposal = self.object
+        user = self.request.user
+        if user.is_authenticated and user == proposal.ad_sender.user:
+            context['proposal_form'] = ExchangeProposalForm(user=user, instance=proposal)
+        return context
+
+    def post(self, request: HttpRequest, *args, **kwargs):
+        self.object = self.get_object()
+        proposal: ExchangeProposal = self.object
+        user = request.user
+
+        if not user.is_authenticated or user != proposal.ad_sender.user:
+            return redirect(request.path)
+        
+        form = ExchangeProposalForm(request.POST, instance=proposal)
+        if form.is_valid():
+            form.save()
+            return redirect(request.path)
+        
+        context = self.get_context_data()
+        context['proposal_form'] = form
+        return self.render_to_response(context)

@@ -1,0 +1,62 @@
+.edit-proposal {
+
+}
+
+.proposal {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.edit-block__top {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-form {
+
+}
+.delete-form__btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.delete-form__img {
+    max-width: 1.2em;
+}
+.delete-form__btn:hover,
+.delete-form__btn:active {
+    padding-left: 1rem;
+}
+
+
+.proposal-item__link {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.2rem 0;
+}
+
+.proposal-item__hover-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    background: #000;
+    transition: 0.1s;
+}
+.proposal-item__link:hover .proposal-item__hover-bar,
+.proposal-item__link:active .proposal-item__hover-bar {
+    width: 1rem;
+}

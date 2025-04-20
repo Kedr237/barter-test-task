@@ -11,4 +11,5 @@ urlpatterns = [
     path('proposals/delete/<int:id>/', views.ProposalDeleteView.as_view(), name='proposal_delete'),
     path('proposals/my/', views.MyProposalsView.as_view(), name='my_proposals'),
     path('proposals/for-me/', views.ProposalsForMeView.as_view(), name='proposals_for_me'),
+    path('proposals/edit/<int:id>/', views.EditProposalView.as_view(), name='edit_proposal'),
 ]
