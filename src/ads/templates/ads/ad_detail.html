@@ -24,14 +24,13 @@
                 </div>
             </div>
 
-
-            {% comment %} Exchange form. {% endcomment %}
             {% if user.is_authenticated and user != ad.user %}
-                {% if proposals %}
+                {% comment %} My proposals. {% endcomment %}
+                {% if my_proposals %}
                     <div class="proposals-block">
                         <h2>Мои предложения</h2>
                         <ul class="proposals">
-                            {% for proposal in proposals %}
+                            {% for proposal in my_proposals %}
                                 <li class="proposals__item">
                                     <div class="proposals__item_content">
                                         <div class="proposals__bar"></div>
@@ -53,6 +52,7 @@
                     </div>
                 {% endif %}
 
+                {% comment %} Exchange form. {% endcomment %}
                 <div class="exchange-block">
                     <h2>Предложить обмен</h2>
                     <form method="POST" class="exchange-form">
@@ -81,8 +81,28 @@
             {% endif %}
 
 
-            {% comment %} Edit form. {% endcomment %}
             {% if user.is_authenticated and user == ad.user %}
+                {% comment %} Proposals for me. {% endcomment %}
+                {% if proposals_for_me %}
+                    <div class="proposals-block">
+                        <h2>Педложения для меня</h2>
+                        <ul class="proposals">
+                            {% for proposal in proposals_for_me %}
+                                <li class="proposals__item">
+                                    <div class="proposals__item_content">
+                                        <div class="proposals__bar"></div>
+                                        <p class="proposals__title"><b>От меня хотят: </b>{{ proposal.ad_sender.title }}</p>
+                                        {% if proposal.comment %}
+                                            <p class="proposals__comment"><b >Комментарий: </b>{{ proposal.comment|truncatechars:50 }}</p>                                    
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {% comment %} Edit form. {% endcomment %}
                 <div class="edit-block">
                     <div class="edit-block__top">
                         <h2>Отредактировать</h2>

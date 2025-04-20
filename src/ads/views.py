@@ -42,9 +42,10 @@ class AdDetail(DetailView):
         if user.is_authenticated:
             if user == ad.user:
                 context['ad_form'] = AdForm(instance=ad)
+                context['proposals_for_me'] = ExchangeProposal.objects.filter(ad_receiver__user=user, ad_receiver=ad)
             if user != ad.user:
                 context['exchange_form'] = ExchangeProposalForm(user=user, ad_receiver=ad)
-                context['proposals'] = ExchangeProposal.objects.filter(ad_sender__user=user)
+                context['my_proposals'] = ExchangeProposal.objects.filter(ad_sender__user=user, ad_receiver=ad)
         return context
 
     def post(self, request: HttpRequest, *args, **kwargs):
@@ -125,4 +126,18 @@ class MyProposalsView(ListView, LoginRequiredMixin):
     def get_queryset(self):
         return ExchangeProposal.objects.filter(
             ad_sender__user=self.request.user,
+        ).order_by('-created_at')
+
+
+
+class ProposalsForMeView(ListView, LoginRequiredMixin):
+
+    model = ExchangeProposal
+    template_name = 'ads/proposals_for_me.html'
+    context_object_name = 'proposals'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return ExchangeProposal.objects.filter(
+            ad_receiver__user=self.request.user,
         ).order_by('-created_at')
