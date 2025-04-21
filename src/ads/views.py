@@ -56,7 +56,7 @@ class MyAdListView(LoginRequiredMixin, ListView):
         return Ad.objects.filter(user=self.request.user).order_by('-created_at')
 
 
-class AdDetail(DetailView):
+class AdDetailView(DetailView):
 
     model = Ad
     template_name = 'ads/ad_detail.html'
