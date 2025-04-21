@@ -186,8 +186,7 @@ class AdDetailViewTest(TestCase):
 
     def test_status_code_ok(self):
         self.client.login(username=self.username1, password=self.password1)
-        url = reverse('my_ad_list')
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
     def test_for_anon_user(self):
