@@ -149,6 +149,10 @@
     padding-left: 1rem;
 }
 
+.proposal-item__small {
+    font-size: 0.8rem;
+}
+
 
 .filter-form {
     margin-bottom: 2rem;

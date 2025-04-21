@@ -54,15 +54,15 @@
                                         </p>                                    
                                     {% endif %}
                                     {% if proposal.ad_sender.user == user %}
-                                        <p class="proposal-item__user">
+                                        <p class="proposal-item__user proposal-item__small">
                                             <b>Пользователь: </b> {{ proposal.ad_receiver.user.username }}
                                         </p>
                                     {% else %}
-                                        <p class="proposal-item__user">
+                                        <p class="proposal-item__user proposal-item__small">
                                             <b>Пользователь: </b> {{ proposal.ad_sender.user.username }}
                                         </p>
                                     {% endif %}
-                                    <p class="proposal-item__status">
+                                    <p class="proposal-item__status proposal-item__small">
                                         <b>Статус: </b> {{ proposal.get_status_display }}
                                     </p>
                                 </div>

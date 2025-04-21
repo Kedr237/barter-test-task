@@ -154,7 +154,7 @@ class MyProposalsView(ListView, LoginRequiredMixin):
     model = ExchangeProposal
     template_name = 'ads/my_proposals.html'
     context_object_name = 'proposals'
-    paginate_by = 20
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = ExchangeProposal.objects.filter(
@@ -186,7 +186,7 @@ class ProposalsForMeView(ListView, LoginRequiredMixin):
     model = ExchangeProposal
     template_name = 'ads/proposals_for_me.html'
     context_object_name = 'proposals'
-    paginate_by = 20
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = ExchangeProposal.objects.filter(
