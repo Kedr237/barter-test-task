@@ -16,7 +16,19 @@
             <h1>{{ ad.title }}</h1>
 
             <div class="ad">
-                <p class="ad__desc">{{ ad.description|linebreaksbr }}</p>
+                <div class="ad__content">
+                    {% if ad.description %}
+                        <p class="ad__desc"><b>Описание: </b>{{ ad.description|linebreaksbr }}</p>
+                    {% endif %}
+                    {% if ad.user == user %}
+                        <p class="ad__user"><b>Пользователь: </b>вы ({{ ad.user.username }})</p>
+                    {% else %}
+                        <p class="ad__user"><b>Пользователь: </b>{{ ad.user.username }}</p>
+                    {% endif %}
+                    <p class="ad__category"><b>Категория: </b>{{ ad.category }}</p>
+                    <p class="ad__condition"><b>Состояние: </b>{{ ad.get_condition_display }}</p>
+                    <p class="ad__created-at"><b>Создано: </b>{{ ad.created_at|date:"d.m.Y" }}</p>
+                </div>
                 <div class="ad__img-cover">
                     {% if ad.image %}
                         <img src="{{ ad.image.url }}" class="ad__img">                        
@@ -39,6 +51,7 @@
                                                 {% if proposal.comment %}
                                                     <p class="proposals__comment"><b >Комментарий: </b>{{ proposal.comment|truncatechars:50 }}</p>                                    
                                                 {% endif %}
+                                                <p class="proposals__status"><b>Статус: </b>{{ proposal.get_status_display }}</p>
                                             </div>
                                         </a>
 
@@ -55,7 +68,7 @@
                     </div>
                 {% endif %}
 
-                {% comment %} Exchange form. {% endcomment %}
+                {% comment %} Proposal form. {% endcomment %}
                 <div class="proposal-block">
                     <h2>Предложить обмен</h2>
                     <form method="POST" class="proposal-form">
@@ -96,7 +109,7 @@
                                         <div class="proposals__bar"></div>
                                         <p class="proposals__title"><b>От меня хотят: </b>{{ proposal.ad_sender.title }}</p>
                                         {% if proposal.comment %}
-                                            <p class="proposals__comment"><b >Комментарий: </b>{{ proposal.comment|truncatechars:50 }}</p>                                    
+                                            <p class="proposals__comment"><b >Комментарий: </b>{{ proposal.comment }}</p>                                    
                                         {% endif %}
                                     </div>
                                 </li>

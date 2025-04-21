@@ -113,6 +113,12 @@ class ProposalDeleteView(View, LoginRequiredMixin):
         proposal = get_object_or_404(ExchangeProposal, id=id)
         if proposal.ad_sender.user == request.user:
             proposal.delete()
+
+        referer = request.META.get('HTTP_REFERER')
+
+        if referer and 'proposals/edit' not in referer:
+            return redirect(referer)
+
         return redirect('my_proposals')
 
 

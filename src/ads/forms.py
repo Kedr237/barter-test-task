@@ -46,7 +46,7 @@ class ExchangeProposalForm(forms.ModelForm):
 
     class Meta:
         model = ExchangeProposal
-        fields = ('ad_sender', 'comment')
+        fields = ('ad_sender', 'comment', 'status')
         labels = {
             'ad_sender': 'Я предлагаю',
         }
@@ -56,7 +56,10 @@ class ExchangeProposalForm(forms.ModelForm):
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'proposal-form__widget proposal-form__comment',
-            })
+            }),
+            'status': forms.Select(attrs={
+                'class': 'proposal-form__widget proposal-form__select',
+            }),
         }
 
     def __init__(self, *args, user=None, ad_receiver=None, **kwargs):

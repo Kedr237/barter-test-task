@@ -31,6 +31,9 @@
                 <p class="proposal-comment">
                     <b>Комментарий: </b>{{ proposal.comment }}
                 </p>
+                <p class="proposal-status">
+                    <b>Статус: </b>{{ proposal.get_status_display }}
+                </p>
             </div>
 
             <div class="proposal-block">

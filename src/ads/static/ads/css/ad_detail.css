@@ -4,11 +4,13 @@
 
 .ad {
     display: flex;
+    justify-content: space-between;
     margin-top: 2rem;
 }
-.ad__desc {
-    padding-right: 1.5rem;
-    flex: 1;
+.ad__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .ad__img-cover {
@@ -22,6 +24,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    object-fit: contain;
 }
 
 .edit-block {
@@ -82,12 +85,14 @@
     align-items: center;
 }
 .proposals__item_content {
-
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 .proposals__title {
 }
 .proposals__comment {
-    margin-top: 0.5rem;
+
 }
 .proposals__bar {
     position: absolute;
