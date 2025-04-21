@@ -22,12 +22,12 @@
                         <div class="header__underline"></div>
                     </a>
                     {% if user.is_authenticated %}
-                        <a href="{% url "my_ad_list" %}" class="header__link">
-                            Мои объявления
-                            <div class="header__underline"></div>
-                        </a>
                         <a href="{% url "ad_create" %}" class="header__link">
                             Создать
+                            <div class="header__underline"></div>
+                        </a>
+                        <a href="{% url "my_ad_list" %}" class="header__link">
+                            Мои объявления
                             <div class="header__underline"></div>
                         </a>
                         <a href="{% url "my_proposals" %}" class="header__link">

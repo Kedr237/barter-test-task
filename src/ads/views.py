@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, View
 
-from .forms import AdForm, ExchangeProposalForm
+from .forms import AdForm, ExchangeProposalForm, AdFilterForm
 from .models import Ad, ExchangeProposal
 
 
@@ -15,6 +16,32 @@ class AdListView(ListView):
     context_object_name = 'ads'
     ordering = ['-created_at']
     paginate_by = 20
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.form = AdFilterForm(self.request.GET)
+
+        if self.form.is_valid():
+            query = self.form.cleaned_data.get('query')
+            category = self.form.cleaned_data.get('category')
+            condition = self.form.cleaned_data.get('condition')
+
+            if query:
+                queryset = queryset.filter(
+                    Q(title__icontains=query) | \
+                    Q(description__icontains=query)
+                )
+            if category:
+                queryset = queryset.filter(category=category)
+            if condition:
+                queryset = queryset.filter(condition=condition)
+        
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = getattr(self, 'form', AdFilterForm())
+        return context
 
 
 class MyAdListView(ListView, LoginRequiredMixin):

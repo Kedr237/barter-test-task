@@ -12,7 +12,7 @@
     padding: 0.5rem;
     border-radius: 10px;
     background: #000;
-    color: #fff!important;
+    color: #fff;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -121,4 +121,55 @@
     box-sizing: border-box!important;
     background: linear-gradient(to left, #000 50%, transparent 50%, transparent 80%, #000 80%);
     border: 1px solid black;
+}
+
+
+.filter-form {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-form__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.filter-form__item label {
+    max-width: 5rem;
+    flex: 1;
+}
+
+.filter-form__widget {
+    max-width: 10rem;
+    padding: 0.2rem 0.5rem;
+    flex: 1;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+.filter-form__query {
+    max-width: 20rem;
+}
+.filter-form__category {
+
+}
+.filter-form__condition {
+
+}
+
+.filter-form__btn {
+    align-self: stretch;
+    width: fit-content;
+    padding: 0 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    gap: 0.5rem;
+    transition: 0.1s;
+    cursor: pointer;
+}
+.filter-form__btn:hover,
+.filter-form__btn:active {
+    padding-right: 1rem;
 }

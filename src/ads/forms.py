@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Ad, ExchangeProposal
+from .models import Ad, ExchangeProposal, Category
 
 
 class CustomClearableFileInput(forms.ClearableFileInput):
@@ -76,3 +76,30 @@ class ExchangeProposalForm(forms.ModelForm):
 
             self.fields['ad_sender'].queryset = user_ads
             self.fields['ad_sender'].label_from_instance = lambda obj: obj.title
+
+
+class AdFilterForm(forms.Form):
+    query = forms.CharField(
+        required=False,
+        label='Поиск',
+                widget=forms.TextInput(attrs={
+            'class': 'filter-form__widget filter-form__query',
+        }),
+    )
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        required=False,
+        label='Категория',
+        empty_label='Любая',
+        widget=forms.Select(attrs={
+            'class': 'filter-form__widget filter-form__category',
+        }),
+    )
+    condition = forms.ChoiceField(
+        choices=[('', 'Любое')] + list(Ad.Condition.choices),
+        required=False,
+        label='Состояние',
+        widget=forms.Select(attrs={
+            'class': 'filter-form__widget filter-form__condition',
+        }),
+    )

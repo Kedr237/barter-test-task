@@ -19,6 +19,22 @@
                 </a>
             </div>
 
+            <form class="filter-form">
+                <div class="filter-form__item">
+                    <label for="{{ filter_form.query.id_for_label }}">{{ filter_form.query.label }}</label>
+                    {{ filter_form.query }}
+                    <button class="filter-form__btn">Применить</button>
+                </div>
+                <div class="filter-form__item">
+                    <label for="{{ filter_form.category.id_for_label }}">{{ filter_form.category.label }}</label>
+                    {{ filter_form.category }}
+                </div>
+                <div class="filter-form__item">
+                    <label for="{{ filter_form.condition.id_for_label }}">{{ filter_form.condition.label }}</label>
+                    {{ filter_form.condition }}
+                </div>
+            </form>
+
             {% if ads %}
                 <ul class="ads">
                     {% for ad in ads %}
