@@ -45,7 +45,7 @@ class AdListView(ListView):
         return context
 
 
-class MyAdListView(ListView, LoginRequiredMixin):
+class MyAdListView(LoginRequiredMixin, ListView):
 
     model = Ad
     template_name = 'ads/my_ad_list.html'
@@ -114,7 +114,7 @@ class AdDetail(DetailView):
         return redirect(request.path)
 
 
-class AdCreateView(CreateView, LoginRequiredMixin):
+class AdCreateView(LoginRequiredMixin, CreateView):
 
     model = Ad
     template_name = 'ads/ad_create.html'
@@ -126,7 +126,7 @@ class AdCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class AdDeleteView(View, LoginRequiredMixin):
+class AdDeleteView(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, id: int):
         ad = get_object_or_404(Ad, id=id)
@@ -135,7 +135,7 @@ class AdDeleteView(View, LoginRequiredMixin):
         return redirect('my_ad_list')
 
 
-class ProposalDeleteView(View, LoginRequiredMixin):
+class ProposalDeleteView(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, id: int):
         proposal = get_object_or_404(ExchangeProposal, id=id)
@@ -150,7 +150,7 @@ class ProposalDeleteView(View, LoginRequiredMixin):
         return redirect('my_proposals')
 
 
-class MyProposalsView(ListView, LoginRequiredMixin):
+class MyProposalsView(LoginRequiredMixin, ListView):
 
     model = ExchangeProposal
     template_name = 'ads/my_proposals.html'
@@ -182,7 +182,7 @@ class MyProposalsView(ListView, LoginRequiredMixin):
         return context
 
 
-class ProposalsForMeView(ListView, LoginRequiredMixin):
+class ProposalsForMeView(LoginRequiredMixin, ListView):
 
     model = ExchangeProposal
     template_name = 'ads/proposals_for_me.html'
@@ -214,7 +214,7 @@ class ProposalsForMeView(ListView, LoginRequiredMixin):
         return context
 
 
-class EditProposalView(DetailView, LoginRequiredMixin):
+class EditProposalView(LoginRequiredMixin, DetailView):
 
     model = ExchangeProposal
     template_name = 'ads/edit_proposal.html'
