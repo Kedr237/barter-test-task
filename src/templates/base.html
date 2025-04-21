@@ -38,6 +38,22 @@
                             Предложения для меня
                             <div class="header__underline"></div>
                         </a>
+                        <form action="{% url "logout" %}" method="POST" class="logout-form">
+                            {% csrf_token %}
+                            <button class="header__link">
+                                Выход
+                                <div class="header__underline"></div>
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url "register" %}" class="header__link">
+                            Регистрация
+                            <div class="header__underline"></div>
+                        </a>
+                        <a href="{% url "login" %}" class="header__link">
+                            Войти
+                            <div class="header__underline"></div>
+                        </a>
                     {% endif %}
                 </div>
             </div>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% load static %}
+
+{% block title %}Зарегистрироваться{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'registration/form.css' %}">
+{% endblock links %}
+
+{% block content %}
+    <div class="login">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 2rem;">Зарегистрироваться</h1>
+
+            <form action="{% url 'register' %}" method="POST" class="form">
+                {% csrf_token %}
+                <div class="form__widget">
+                    <label for="{{ form.username.id_for_label }}">Логин</label>
+                    {{ form.username }}
+                </div>
+                <div class="form__widget">
+                    <label for="{{ form.password1.id_for_label }}">Пароль</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form__widget">
+                    <label for="{{ form.password2.id_for_label }}">Повторите пароль</label>
+                    {{ form.password2 }}
+                </div>
+                <button class="form__btn">Регистрация</button>
+                {% if form.errors %}
+                    <div class="form__errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="form__error">{% trans error %}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="form__error">{% trans error %}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+
+        </div>
+    </div>
+{% endblock content %}

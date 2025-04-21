@@ -34,15 +34,16 @@ h2 {
 header {
     padding: 1rem 0;
     background: #000;
-    color: #fff;
 }
 .header__links {
     display: flex;
     gap: 1rem;
 }
 .header__link {
+    color: #fff;
     position: relative;
     padding-bottom: 2px;
+    cursor: pointer;
 }
 .header__underline {
     position: absolute;
