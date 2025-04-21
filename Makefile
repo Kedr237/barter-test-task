@@ -1,5 +1,5 @@
 up:
-	docker compose -f docker-compose.yml up -d --build --force-recreate --remove-orphans
+	docker compose -f docker-compose.yml up -d --build --force-recreate
 
 watch:
 	docker compose -f docker-compose.yml watch
@@ -17,7 +17,7 @@ clear:
 	docker compose -f docker-compose.yml down -v --rmi all
 
 up-test:
-	docker compose -f docker-compose.test.yml up --build --force-recreate --remove-orphans --abort-on-container-exit
+	docker compose -f docker-compose.test.yml up --build --force-recreate --abort-on-container-exit
 
 logs-test:
 	docker compose -f docker-compose.test.yml logs
