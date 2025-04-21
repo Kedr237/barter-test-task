@@ -253,3 +253,51 @@ class AdDetailViewTest(TestCase):
         self.assertEqual(proposal.ad_sender, self.ad2)
         self.assertEqual(proposal.ad_sender.user, self.user2)
         self.assertRedirects(response, self.url)
+
+
+class AdCreateViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.username1 = 'username1'
+        cls.password1 = 'testpass1'
+
+        cls.user1 = User.objects.create_user(
+            username=cls.username1,
+            password=cls.password1,
+        )
+
+        cls.category1 = Category.objects.create(title='category')
+
+        cls.url = reverse('ad_create')
+
+
+    def test_status_code_ok(self):
+        self.client.login(username=self.username1, password=self.password1)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_ad(self):
+        self.client.login(username=self.username1, password=self.password1)
+        data = {
+            'title': 'title',
+            'description': 'description',
+            'category': self.category1.id,
+            'condition': Ad.Condition.NEW,
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('ad_list'))
+
+        ad = Ad.objects.first()
+        self.assertEqual(ad.title, data['title'])
+        self.assertEqual(ad.description, data['description'])
+        self.assertEqual(ad.category, self.category1)
+        self.assertEqual(ad.condition, data['condition'])
+        self.assertEqual(ad.user, self.user1)
+
+    def test_redirect_anon_user(self):
+        redirect_url = reverse('login')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'{redirect_url}?next={self.url}')
