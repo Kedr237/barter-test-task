@@ -50,12 +50,18 @@
     padding: 0.5rem;
     padding-right: 1.5rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 .ad-item__title {
     font-weight: 600;
 }
 .ad-item__desc {
-    margin-top: 0.5rem;
+
+}
+.ad-item__small {
+    font-size: 0.8rem;
 }
 .ad-item__hover-bar {
     position: absolute;

@@ -26,7 +26,11 @@
                             <a href="{% url "ad_detail" id=ad.id %}" class="ad-item__link {% if ad.user == user %}my-ad{% endif %}">
                                 <div class="ad-item__content">
                                     <p class="ad-item__title">{{ ad.title }}</p>
-                                    <p class="ad-item__desc">{{ ad.description|truncatechars:100 }}</p>
+                                    <p class="ad-item__desc"><b>Описание: </b>{{ ad.description|truncatechars:120 }}</p>
+                                    <p class="ad-item__user ad-item__small"><b>Пользователь: </b>вы ({{ ad.user.username }})</p>
+                                    <p class="ad-item__category ad-item__small"><b>Категория: </b>{{ ad.category }}</p>
+                                    <p class="ad-item__condition ad-item__small"><b>Состояние: </b>{{ ad.get_condition_display }}</p>
+                                    <p class="ad-item__created-at ad-item__small"><b>Создано: </b>{{ ad.created_at|date:"d.m.Y" }}</p>
                                     <div class="ad-item__hover-bar"></div>
                                 </div>
                                 <div class="ad-item__img-cover">
