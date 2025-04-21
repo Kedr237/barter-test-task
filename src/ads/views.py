@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, View
 
-from .forms import AdForm, ExchangeProposalForm, AdFilterForm
+from .forms import AdFilterForm, AdForm, ExchangeProposalForm, ProposalFilterForm
 from .models import Ad, ExchangeProposal
 
 
@@ -157,9 +157,28 @@ class MyProposalsView(ListView, LoginRequiredMixin):
     paginate_by = 20
 
     def get_queryset(self):
-        return ExchangeProposal.objects.filter(
+        queryset = ExchangeProposal.objects.filter(
             ad_sender__user=self.request.user,
         ).order_by('-created_at')
+        self.form = ProposalFilterForm(self.request.GET)
+
+        if self.form.is_valid():
+            user_query = self.form.cleaned_data.get('user_query')
+            status = self.form.cleaned_data.get('status')
+
+            if user_query:
+                queryset = queryset.filter(
+                    Q(ad_receiver__user__username__icontains=user_query)
+                )
+            if status:
+                queryset = queryset.filter(status=status)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = getattr(self, 'form', ProposalFilterForm())
+        return context
 
 
 class ProposalsForMeView(ListView, LoginRequiredMixin):
@@ -170,9 +189,28 @@ class ProposalsForMeView(ListView, LoginRequiredMixin):
     paginate_by = 20
 
     def get_queryset(self):
-        return ExchangeProposal.objects.filter(
-            ad_receiver__user=self.request.user,
+        queryset = ExchangeProposal.objects.filter(
+            ad_receiver__user__username=self.request.user,
         ).order_by('-created_at')
+        self.form = ProposalFilterForm(self.request.GET)
+
+        if self.form.is_valid():
+            user_query = self.form.cleaned_data.get('user_query')
+            status = self.form.cleaned_data.get('status')
+
+            if user_query:
+                queryset = queryset.filter(
+                    Q(ad_sender__user__username__icontains=user_query)
+                )
+            if status:
+                queryset = queryset.filter(status=status)
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = getattr(self, 'form', ProposalFilterForm())
+        return context
 
 
 class EditProposalView(DetailView, LoginRequiredMixin):

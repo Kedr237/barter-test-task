@@ -103,3 +103,21 @@ class AdFilterForm(forms.Form):
             'class': 'filter-form__widget filter-form__condition',
         }),
     )
+
+
+class ProposalFilterForm(forms.Form):
+    user_query = forms.CharField(
+        required=False,
+        label='Пользователь',
+                widget=forms.TextInput(attrs={
+            'class': 'filter-form__widget filter-form__user-query',
+        }),
+    )
+    status = forms.ChoiceField(
+        choices=[('', 'Любой')] + list(ExchangeProposal.Status.choices),
+        required=False,
+        label='Статус',
+        widget=forms.Select(attrs={
+            'class': 'filter-form__widget filter-form__status',
+        }),
+    )

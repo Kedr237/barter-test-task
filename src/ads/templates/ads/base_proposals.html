@@ -15,6 +15,18 @@
                 <h1>{% block h1 %}{% endblock h1 %}</h1>
             </div>
 
+            <form class="filter-form">
+                <div class="filter-form__item">
+                    <label for="{{ filter_form.user_query.id_for_label }}">{{ filter_form.user_query.label }}</label>
+                    {{ filter_form.user_query }}
+                    <button class="filter-form__btn">Применить</button>
+                </div>
+                <div class="filter-form__item">
+                    <label for="{{ filter_form.status.id_for_label }}">{{ filter_form.status.label }}</label>
+                    {{ filter_form.status }}
+                </div>
+            </form>
+
             {% if proposals %}
                 <ul class="proposals">
                     {% for proposal in proposals %}
@@ -41,7 +53,18 @@
                                             {{ proposal.comment }}
                                         </p>                                    
                                     {% endif %}
-                                    {% block status %}{% endblock status %}
+                                    {% if proposal.ad_sender.user == user %}
+                                        <p class="proposal-item__user">
+                                            <b>Пользователь: </b> {{ proposal.ad_receiver.user.username }}
+                                        </p>
+                                    {% else %}
+                                        <p class="proposal-item__user">
+                                            <b>Пользователь: </b> {{ proposal.ad_sender.user.username }}
+                                        </p>
+                                    {% endif %}
+                                    <p class="proposal-item__status">
+                                        <b>Статус: </b> {{ proposal.get_status_display }}
+                                    </p>
                                 </div>
                         </li>
                     {% endfor %}

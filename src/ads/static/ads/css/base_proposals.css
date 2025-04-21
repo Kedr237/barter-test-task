@@ -148,3 +148,48 @@
 .delete-form__btn:active {
     padding-left: 1rem;
 }
+
+
+.filter-form {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-form__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.filter-form__item label {
+    max-width: 7rem;
+    flex: 1;
+}
+
+.filter-form__widget {
+    max-width: 10rem;
+    padding: 0.2rem 0.5rem;
+    flex: 1;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+.filter-form__user-query {
+    max-width: 20rem;
+}
+
+.filter-form__btn {
+    align-self: stretch;
+    width: fit-content;
+    padding: 0 0.5rem;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    gap: 0.5rem;
+    transition: 0.1s;
+    cursor: pointer;
+}
+.filter-form__btn:hover,
+.filter-form__btn:active {
+    padding-right: 1rem;
+}
