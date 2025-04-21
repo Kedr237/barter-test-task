@@ -301,3 +301,65 @@ class AdCreateViewTest(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'{redirect_url}?next={self.url}')
+
+
+class AdDeleteViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.username1 = 'username1'
+        cls.password1 = 'testpass1'
+        cls.username2 = 'username2'
+        cls.password2 = 'testpass2'
+
+        cls.user1 = User.objects.create_user(
+            username=cls.username1,
+            password=cls.password1,
+        )
+        cls.user2 = User.objects.create_user(
+            username=cls.username2,
+            password=cls.password2,
+        )
+
+        cls.category1 = Category.objects.create(title='category')
+
+        cls.ad1 = Ad.objects.create(
+            user=cls.user1,
+            title='title1 title1',
+            description='description1 description1',
+            category=cls.category1,
+            condition=Ad.Condition.NEW,
+        )
+        cls.ad2 = Ad.objects.create(
+            user=cls.user1,
+            title='title2 title2',
+            description='description2 description2',
+            category=cls.category1,
+            condition=Ad.Condition.USED,
+        )
+
+        cls.url = reverse('ad_delete', kwargs={'id': cls.ad1.id})
+
+    def test_delete_ad(self):
+        self.client.login(username=self.username1, password=self.password1)
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('my_ad_list'))
+
+        self.assertEqual(Ad.objects.count(), 1)
+        self.assertFalse(Ad.objects.filter(id=self.ad1.id).exists())
+
+    def test_delete_ad_by_anon(self):
+        redirect_url = reverse('login')
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'{redirect_url}?next={self.url}')
+
+    def test_delete_ad_by_not_owner(self):
+        self.client.login(username=self.username2, password=self.password2)
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('my_ad_list'))
+        
+        self.assertEqual(Ad.objects.count(), 2)
+        self.assertTrue(Ad.objects.filter(id=self.ad1.id).exists())
