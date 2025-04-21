@@ -17,8 +17,8 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         TARGET_USERS = 20
         TARGET_CATEGORIES = 10
-        TARGET_ADS = 100
-        TARGET_PROPOSALS = 20
+        TARGET_ADS = 200
+        TARGET_PROPOSALS = 200
 
         need_users = TARGET_USERS - User.objects.count()
         need_categories = TARGET_CATEGORIES - Category.objects.count()
