@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  test_app:
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - test_postgres
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=test_postgres
+      - RUN_TESTS=True
+
+  test_postgres:
+    image: postgres:16
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - test_pg_data:/var/lib/postgresql/data
+
+
+volumes:
+  test_pg_data:

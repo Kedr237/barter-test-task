@@ -7,6 +7,13 @@ done
 cd src
 
 
+if [ "$RUN_TESTS" = "True" ]; then
+    python manage.py migrate
+    python manage.py test
+    exit 0
+fi
+
+
 python manage.py migrate
 
 python manage.py compilemessages
